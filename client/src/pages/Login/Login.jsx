@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { mobile } from "../../responsive";
 import styles from "./login.module.css";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 100vw;
@@ -22,25 +23,88 @@ const Wrapper = styled.div`
 `;
 
 const Login = () => {
+  const [tab, setTab] = useState("SIGN IN");
+  const handleTab = (e) => {
+    setTab(e.target.innerText);
+    // console.log(e.target.innerText);
+  };
+  console.log(tab);
   return (
     <Container>
       <Wrapper>
         <div className={styles.main}>
           <div className={styles.firstPart}>
-            <button className={styles.btn} id="Btn1">
+            <button
+              className={`${styles.btn} ${
+                tab === "SIGN UP" ? styles.selected : ""
+              }`}
+              onClick={handleTab}
+              id="Btn1"
+            >
               SIGN UP
             </button>
-            <button className={styles.selected + " " + styles.btn} id="Btn2">
+            <button
+              className={`${styles.btn} ${
+                tab === "SIGN IN" ? styles.selected : ""
+              }`}
+              onClick={handleTab}
+              id="Btn2"
+            >
               SIGN IN
             </button>
           </div>
-          <div className={styles.secondPart2}>
-            <h1 className={styles.firstLine}>Sign in to your account</h1>
-            <p>
-              Your student account is your portal to all things Udacity: your{" "}
-              <br />
-              classroom, projects, forums, career resources, and more!
-            </p>
+          <div
+            className={styles.secondPart1}
+            style={{ display: tab === "SIGN UP" ? "block" : "none" }}
+          >
+            <form method="POST">
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                placeholder="First Name*"
+                autofocus
+                required
+              />
+              <input
+                type="text"
+                name="lastname"
+                id="lastName"
+                className={styles.lastName}
+                placeholder="Last Name*"
+                required
+              />
+              <input
+                type="email"
+                id="email"
+                name="e-mail"
+                className={styles.E_mail}
+                placeholder="Email Address*"
+                required
+              />
+              <input
+                type="text"
+                id="phoneno"
+                name="phoneNo"
+                placeholder="Phone No*"
+                className={styles.E_mail}
+              />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password*"
+                className={styles.E_mail}
+                required
+              />
+
+              <button className={styles.signupBtn}>SIGN UP</button>
+            </form>
+          </div>
+          <div
+            className={styles.secondPart2}
+            style={{ display: tab === "SIGN IN" ? "block" : "none" }}
+          >
             <form>
               <input
                 type="email"
@@ -57,13 +121,7 @@ const Login = () => {
                 required
               />
 
-              <p>
-                By clicking Sign Up, you agree to our{" "}
-                <a href="#">Terms of Use</a> and our{" "}
-                <a href="#">Privacy Policy</a>.
-              </p>
-
-              <button className={styles.signinBtn}>SIGN UP</button>
+              <button className={styles.signupBtn}>SIGN IN</button>
 
               <a href="#" className={styles.fp}>
                 Forgot your password?
